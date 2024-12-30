@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -28,6 +29,16 @@ public class User implements UserDetails {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(Byte age, String email, String username, String firstname, String lastname, String password, Set<Role> roles) {
+        this.age = age;
+        this.email = email;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -130,5 +141,13 @@ public class User implements UserDetails {
                 ", age=" + age +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public boolean hasRole(int roleId) {
+        if (null == roles || roles.isEmpty()) {
+            return false;
+        }
+        Optional<Role> findRole = roles.stream().filter(role -> roleId == role.getId()).findFirst();
+        return findRole.isPresent();
     }
 }

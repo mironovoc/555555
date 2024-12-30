@@ -1,15 +1,19 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
-    UserDetails loadUserByUsername(String username);
+public interface UserService extends UserDetailsService {
 
     User findUserByName(String username);
 
@@ -17,15 +21,12 @@ public interface UserService {
 
     List<User> allUsers();
 
-    void saveUser(User user);
-
     void deleteUser(Long userId);
-
-    List<User> usergtList(Long idMin);
 
     List<Role> listRoles();
 
-    BCryptPasswordEncoder bbCryptPasswordEncoder();
-
-    Optional<User> findByEmail(String email);
+    User insertUser(User user);
+    User updateUser(User user);
+    Iterable<Role> findAllRoles();
+    String getPage(Model model, HttpSession session, Authentication auth);
 }
