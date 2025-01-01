@@ -1,0 +1,61 @@
+<!-- Таблица для отображения информации о книге -->
+<table class="table viewBookTable" th:fragment="viewBookTable" style="display:none;">
+    <tbody>
+    <!-- Строка с ID книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">ID</th>
+        <td class="border-0" id="id"></td>
+    </tr>
+    <!-- Строка с названием книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">User name</th>
+        <td class="border-0" id="title"></td>
+    </tr>
+    <!-- Строка с изданием книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">First name</th>
+        <td class="border-0" id="edition"></td>
+    </tr>
+    <!-- Строка с автором книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">Last name</th>
+        <td class="border-0" id="author"></td>
+    </tr>
+    <!-- Строка с описанием книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">Age</th>
+        <td class="border-0" id="bookDescription"></td>
+    </tr>
+    <!-- Строка с категорией книги -->
+    <tr>
+        <th class="text-right border-0" scope="row">Email</th>
+        <td class="border-0" id="category"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Таблица для отображения информации о категории -->
+<table class="table viewCategoryTable" th:fragment="viewCategoryTable" style="display:none;">
+    <tbody>
+    <!-- Строка с ID категории -->
+    <tr>
+        <th class="text-right border-0" scope="row">ID</th>
+        <td class="border-0" id="id"></td>
+    </tr>
+    <!-- Строка с названием категории -->
+    <tr>
+        <th class="text-right border-0" scope="row">Name</th>
+        <td class="border-0" id="name"></td>
+    </tr>
+    <!-- Строка с описанием категории -->
+    <tr>
+        <th class="text-right border-0" scope="row">Description</th>
+        <td class="border-0" id="description"></td>
+    </tr>
+    <!-- Строка с датой создания категории -->
+    <tr>
+        <th class="text-right border-0" scope="row">Created At</th>
+        <td class="border-0" id="createdAt"></td>
+    </tr>
+    </tbody>
+</table>

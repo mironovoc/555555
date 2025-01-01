@@ -1,0 +1,47 @@
+<!-- Форма для добавления/редактирования книги -->
+<form class="bookForm" th:fragment="bookForm" style="display:none;">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <!-- Поле для ввода названия книги -->
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+        <!-- Блок для отображения ошибок валидации -->
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="edition">Edition</label>
+        <!-- Поле для ввода издания книги -->
+        <input type="text" class="form-control" id="edition" name="edition" placeholder="Edition">
+    </div>
+    <div class="form-group">
+        <label for="author">Author</label>
+        <!-- Поле для ввода автора книги -->
+        <input type="text" class="form-control" id="author" name="author" placeholder="Author">
+    </div>
+    <div class="form-group">
+        <label for="bookDescription">Description</label>
+        <!-- Поле для ввода описания книги -->
+        <textarea class="form-control" id="bookDescription" name="bookDescription" rows="2"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <!-- Выпадающий список для выбора категории книги -->
+        <select class="form-control" id="category" name="category">
+        </select>
+    </div>
+</form>
+
+<!-- Форма для добавления/редактирования категории -->
+<form class="categoryForm" th:fragment="categoryForm" style="display:none;">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <!-- Поле для ввода названия категории -->
+        <input type="text" class="form-control" id="name" name="name" placeholder="Title">
+        <!-- Блок для отображения ошибок валидации -->
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="categoryDescription">Description</label>
+        <!-- Поле для ввода описания категории -->
+        <textarea class="form-control" id="categoryDescription" name="categoryDescription" rows="2"></textarea>
+    </div>
+</form>

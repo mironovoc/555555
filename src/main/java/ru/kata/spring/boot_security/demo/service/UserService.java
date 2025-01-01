@@ -28,5 +28,5 @@ public interface UserService extends UserDetailsService {
     User insertUser(User user);
     User updateUser(User user);
     Iterable<Role> findAllRoles();
-    String getPage(Model model, HttpSession session, Authentication auth);
+    User getCurrentUser();
 }

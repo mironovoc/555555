@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Фрагмент head, который может быть переопределен в других шаблонах -->
+    <th:block layout:fragment="head">
+        <!-- Базовые мета-теги -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Иконка сайта -->
+        <link rel="icon" href="../../../../favicon.ico">
+
+        <!-- Динамический заголовок страницы, использует Thymeleaf -->
+        <title th:text="#{app.name} + ' - ' + ${pageName}">Title</title>
+
+        <!-- Подключение Bootstrap и Font Awesome через WebJars -->
+        <link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/webjars/font-awesome/5.5.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Подключение пользовательских стилей -->
+        <link href="/css/main.css" rel="stylesheet">
+    </th:block>
+</head>
+<body>
+<!-- Фрагмент header, который может быть переиспользован в других шаблонах -->
+<header th:fragment="header">
+    <!-- Фиксированная навигационная панель -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-orange">
+        <!-- Логотип или название приложения -->
+        <a class="navbar-brand" href="/" th:text="#{app.name}">App Name</a>
+
+        <!-- Кнопка для сворачивания меню на мобильных устройствах -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Основное меню -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <!-- Пункт меню "Books" -->
+                <li class="nav-item" th:classappend="${#strings.contains(pageName, 'Admin')} ? 'active' : ''">
+                    <a class="nav-link" href="/books" th:text="#{main.menu.admin}">Books</a>
+                </li>
+
+                <!-- Пункт меню "Categories" -->
+                <li class="nav-item" th:classappend="${#strings.contains(pageName, 'User')} ? 'active' : ''">
+                    <a class="nav-link" href="/user" th:text="#{main.menu.user}">User</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

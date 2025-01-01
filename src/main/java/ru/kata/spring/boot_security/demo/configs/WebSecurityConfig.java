@@ -14,8 +14,9 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final SuccessUserHandler successUserHandler;
     private final UserServiceImp userService;
+    @Autowired
+    private SuccessUserHandler successUserHandler;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -32,7 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**", "/edit", "delete").hasRole("ADMIN")
+                .antMatchers("/api/users").permitAll() // Разрешить доступ к API пользователей
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated();
         http.formLogin()

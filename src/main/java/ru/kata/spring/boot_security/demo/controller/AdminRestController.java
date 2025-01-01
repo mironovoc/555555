@@ -11,18 +11,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserRestController {
+public class AdminRestController {
 
     private final UserService userService;
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
     }
 
+    //    @GetMapping
+//    public ResponseEntity<List<User>> getAllUsers() {
+//        return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
+//    }
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
+    public List<User> findAll() {
+        return userService.allUsers();
     }
 
     @GetMapping("/{id}")

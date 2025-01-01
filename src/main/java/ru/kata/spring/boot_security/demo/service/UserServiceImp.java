@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +29,7 @@ public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -69,6 +71,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return findUserByName(auth.getName());
+    }
+
+    @Override
     public void deleteUser(Long userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
@@ -94,40 +102,6 @@ public class UserServiceImp implements UserService {
     @Override
     public Iterable<Role> findAllRoles() {
         return roleRepository.findAll();
-    }
-
-    @Override
-    public String getPage(Model model, HttpSession session, Authentication auth) {
-        if (Objects.isNull(auth)) {
-            handleUnauthenticatedUser(model, session);
-            return "login-page";
-        }
-        return handleAuthenticatedUser(model, auth);
-    }
-
-    private void handleUnauthenticatedUser(Model model, HttpSession session) {
-        model.addAttribute("authenticatedName", session.getAttribute("authenticatedName"));
-        session.removeAttribute("authenticatedName");
-        model.addAttribute("authenticationException", session.getAttribute("authenticationException"));
-        session.removeAttribute("authenticationException");
-    }
-
-    private String handleAuthenticatedUser(Model model, Authentication auth) {
-        org.springframework.security.core.userdetails.User securityUser =
-                (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-
-        // Получаем вашего пользователя из базы данных
-        User user = userRepository.findByUsername(securityUser.getUsername());
-
-        model.addAttribute("user", user);
-
-        if (user.hasRole(1)) {
-            return "main-page";
-        }
-        if (user.hasRole(2)) {
-            return "user-page";
-        }
-        return "access-denied-page";
     }
 
 }
