@@ -12,7 +12,7 @@ let dangerButton = $('<button type="button" class="btn btn-danger"></button>'); 
 
 // Когда документ загружен, выполняем следующие действия
 $(document).ready(function(){
-    viewAllUsers(); // Загружаем и отображаем все книги
+    viewAllUsers(); // Загружаем и отображаем всех пользователей
     viewAllCategories(); // Загружаем и отображаем все категории
     defaultModal(); // Инициализируем модальное окно
 });
@@ -31,32 +31,20 @@ function defaultModal() {
 
         // В зависимости от действия вызываем соответствующую функцию
         switch(action) {
-            case 'viewBook':
-                viewBook($(this), id); // Просмотр книги
+            case 'viewUser':
+                viewUser($(this), id); // Просмотр пользователя
                 break;
 
-            case 'addBook':
-                addBook($(this)); // Добавление книги
+            case 'addUser':
+                addUser($(this)); // Добавление пользователя
                 break;
 
-            case 'editBook':
-                editBook($(this), id); // Редактирование книги
+            case 'editUser':
+                editUser($(this), id); // Редактирование пользователя
                 break;
 
-            case 'deleteBook':
-                deleteBook($(this), id); // Удаление книги
-                break;
-
-            case 'viewCategory':
-                viewCategory($(this), id); // Просмотр категории
-                break;
-
-            case 'addCategory':
-                addCategory($(this)); // Добавление категории
-                break;
-
-            case 'editCategory':
-                editCategory($(this), id); // Редактирование категории
+            case 'deleteUser':
+                deleteUser($(this), id); // Удаление пользователя
                 break;
         }
     }).on('hidden.bs.modal', function(event){
@@ -67,48 +55,9 @@ function defaultModal() {
     });
 }
 
-// Функция для отображения всех книг в таблице
-$(document).ready(function(){
-    viewAllUsers();
-    defaultModal();
-});
-
-function defaultModal() {
-    modal.modal({
-        keyboard: true,
-        backdrop: "static",
-        show: false,
-    }).on("show.bs.modal", function(event){
-        let button = $(event.relatedTarget);
-        let id = button.data('id');
-        let action = button.data('action');
-
-        switch(action) {
-            case 'viewUser':
-                viewUser($(this), id);
-                break;
-
-            case 'addUser':
-                addUser($(this));
-                break;
-
-            case 'editUser':
-                editUser($(this), id);
-                break;
-
-            case 'deleteUser':
-                deleteUser($(this), id);
-                break;
-        }
-    }).on('hidden.bs.modal', function(event){
-        $(this).find('.modal-title').html('');
-        $(this).find('.modal-body').html('');
-        $(this).find('.modal-footer').html('');
-    });
-}
-
+// Функция для отображения всех пользователей в таблице
 async function viewAllUsers() {
-    $('#userTable tbody').empty();
+    $('#userTable tbody').empty(); // Очищаем таблицу перед добавлением новых данных
     const usersResponse = await userService.findAll();
     const usersJson = await usersResponse.json();
     usersJson.forEach(user => {

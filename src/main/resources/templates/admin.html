@@ -1,56 +1,43 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Включаем блок head из фрагмента header -->
     <th:block th:include="fragments/header :: head"></th:block>
 </head>
 <body>
-<!-- Заменяем текущий header на header из фрагмента header -->
 <header th:replace="fragments/header :: header"></header>
 
-<!-- Основное содержимое страницы -->
 <main class="container">
     <div class="row">
         <div class="col">
-            <!-- Кнопка для добавления новой книги. Открывает модальное окно -->
-            <button type="button" class="btn btn-primary" data-action="addBook" data-toggle="modal" data-target="#defaultModal">
-                <i class="far fa-plus-square"></i> New
+            <button type="button" class="btn btn-primary" data-action="addUser" data-toggle="modal" data-target="#defaultModal">
+                <i class="far fa-plus-square"></i> New User
             </button>
 
-            <!-- Таблица для отображения списка книг -->
-            <table id="bookTable" class="table" style="margin-top:10px;">
+            <table id="userTable" class="table" style="margin-top:10px;">
                 <thead>
                 <tr>
-                    <!-- Заголовки столбцов таблицы -->
-                    <th class="bg-dark">ID</th> <!-- Столбец с идентификаторами книг -->
-                    <th class="bg-dark">User name</th> <!-- Столбец с названиями книг -->
-                    <th class="bg-dark">First name</th> <!-- Столбец с изданием книги -->
-                    <th class="bg-dark">Last name</th> <!-- Столбец с автором книги -->
-                    <th class="bg-dark">Age</th> <!-- Столбец с категорией книги -->
-                    <th class="bg-dark">Email</th> <!-- Столбец для действий (например, редактирование или удаление) -->
+                    <th class="bg-dark">ID</th>
+                    <th class="bg-dark">Username</th>
+                    <th class="bg-dark">First Name</th>
+                    <th class="bg-dark">Last Name</th>
+                    <th class="bg-dark">Age</th>
+                    <th class="bg-dark">Email</th>
+                    <th class="bg-dark">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Тело таблицы. Строки будут добавлены динамически -->
+                <!-- Rows will be populated dynamically -->
                 </tbody>
             </table>
         </div>
     </div>
 </main>
 
-<!-- Включаем модальное окно из фрагмента modal -->
 <div th:replace="fragments/modal :: defaultModal"></div>
+<div th:replace="fragments/form :: userForm"></div>
+<div th:replace="fragments/table :: viewUserTable"></div>
 
-<!-- Включаем форму для работы с книгами из фрагмента form -->
-<div th:replace="fragments/form :: bookForm"></div>
-
-<!-- Включаем таблицу для просмотра книг из фрагмента table -->
-<div th:replace="fragments/table :: viewBookTable"></div>
-
-<!-- Заменяем текущий footer на footer из фрагмента footer -->
 <footer th:replace="fragments/footer :: footer"></footer>
-
-<!-- Включаем блок script из фрагмента footer -->
 <div th:replace="fragments/footer :: script"></div>
 </body>
 </html>
