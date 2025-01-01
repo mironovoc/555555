@@ -13,7 +13,6 @@ let dangerButton = $('<button type="button" class="btn btn-danger"></button>'); 
 // Когда документ загружен, выполняем следующие действия
 $(document).ready(function(){
     viewAllUsers(); // Загружаем и отображаем всех пользователей
-    viewAllCategories(); // Загружаем и отображаем все категории
     defaultModal(); // Инициализируем модальное окно
 });
 
@@ -78,6 +77,69 @@ async function viewAllUsers() {
         </tr>`;
         $('#userTable tbody').append(userRow);
     });
+}
+
+// Функция для добавления нового пользователя
+function addUser(modalElement) {
+    modalTitle.text('Add New User');
+    modalBody.html($('.userForm').clone().show());
+    primaryButton.text('Save').off('click').on('click', function() {
+        let userData = {
+            username: $('#username').val(),
+            firstname: $('#firstname').val(),
+            lastname: $('#lastname').val(),
+            age: $('#age').val(),
+            email: $('#email').val(),
+            password: $('#password').val()
+        };
+        userService.add(userData).then(() => {
+            modalElement.modal('hide');
+            viewAllUsers();
+        });
+    });
+    modalFooter.empty().append(primaryButton, dismissButton);
+}
+
+// Функция для редактирования пользователя
+function editUser(modalElement, id) {
+    modalTitle.text('Edit User');
+    modalBody.html($('.userForm').clone().show());
+    userService.findById(id).then(response => response.json()).then(user => {
+        $('#username').val(user.username);
+        $('#firstname').val(user.firstname);
+        $('#lastname').val(user.lastname);
+        $('#age').val(user.age);
+        $('#email').val(user.email);
+        $('#password').val(user.password);
+    });
+    primaryButton.text('Update').off('click').on('click', function() {
+        let userData = {
+            username: $('#username').val(),
+            firstname: $('#firstname').val(),
+            lastname: $('#lastname').val(),
+            age: $('#age').val(),
+            email: $('#email').val(),
+            password: $('#password').val()
+        };
+        userService.update(id, userData).then(() => {
+            modalElement.modal('hide');
+            viewAllUsers();
+        });
+    });
+    modalFooter.empty().append(primaryButton, dismissButton);
+}
+
+// Функция для удаления пользователя
+function deleteUser(modalElement, id) {
+    modalTitle.text('Delete User');
+    modalBody.html('Are you sure you want to delete this user?');
+    dangerButton.text('Delete').off('click').on('click', function() {
+        userService.delete(id).then(() => {
+            modalElement.modal('hide');
+            viewAllUsers();
+        });
+    });
+    modalFooter.empty().append(dangerButton, dismissButton);
 }
 
 const userService = {
